@@ -6,6 +6,8 @@
 import gspread
 #  improt only creadential class
 from google.oauth2.service_account import Credentials
+# import pprint 
+from pprint import pprint
 
 # set the scope
 SCOPE = [
@@ -59,6 +61,8 @@ def get_sales_data():
     # Return validated sales data
     return sales_data
 
+
+
 def validate_data(values):
     """
     Inside try, convert all string values into integers.
@@ -91,10 +95,32 @@ def update_sales_worksheet(data):
     sales_worksheet.append_row(data)
     print('Sales datasheet updated successfully...\n')
 
+def calculate_surplus_data(sales_row):
+    """
+    Campare sales with stock and calculate the surplus for each item
 
-# Call a new variable to add data
-data = get_sales_data()
-#  convert data provided to int
-sales_data = [int(num) for num in data]
-# call update datasheet funtion
-update_sales_worksheet(sales_data)
+    The surplus is defined as Sales figure minus stock before the market:
+    - Positive surplus indicates waste
+    - Negative surplus indicates extra made when stock was sold.
+    """
+    print('Calculating surplus data calculation...\n')
+    stock = SHEET.worksheet('stock').get_all_values()
+    stock_row = stock[-1]
+    print(stock_row)
+
+
+def main():
+    """
+    Run all program functions
+    """
+    # Call a new variable to add data
+    data = get_sales_data()
+    #  convert data provided to int
+    sales_data = [int(num) for num in data]
+    # call update datasheet funtion
+    update_sales_worksheet(sales_data)
+    # call claculate surplus function
+    calculate_surplus_data(sales_data)
+
+print('Welcome to LOVE Sandwiches Data Automation')
+main()
