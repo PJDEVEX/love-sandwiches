@@ -31,7 +31,10 @@ sales = SHEET.worksheet('sales')
 
 def get_sales_data():
     """
-    Get sales figures from the user
+    Get sales figures from the user.
+    Run a while loop to collect a valid string of data from user
+    via the terminal, which must be a string of 6 int seperated 
+    by commas. The loop will request data, until it is valid.
     """
     # Create while loop to repeat till get the correct data
     while True:
@@ -52,7 +55,9 @@ def get_sales_data():
             # Add a print statement to confirm valid data
             print('Data provided is valid!')
             break
-
+    
+    # Return validated sales data
+    return sales_data
 
 def validate_data(values):
     """
@@ -76,4 +81,20 @@ def validate_data(values):
     return True
 
 
-get_sales_data()
+
+def update_sales_worksheet(data):
+    """"
+    Update sales worksheet, add new row with the list data provided.
+    """
+    print('Updating sales worksheet....\n')
+    sales_worksheet = SHEET.worksheet('sales')
+    sales_worksheet.append_row(data)
+    print('Sales datasheet updated successfully...\n')
+
+
+# Call a new variable to add data
+data = get_sales_data()
+#  convert data provided to int
+sales_data = [int(num) for num in data]
+# call update datasheet funtion
+update_sales_worksheet(sales_data)
