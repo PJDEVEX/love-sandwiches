@@ -6,8 +6,8 @@
 import gspread
 #  improt only creadential class
 from google.oauth2.service_account import Credentials
-# import pprint 
-from pprint import pprint
+# # import pprint 
+# from pprint import pprint
 
 # set the scope
 SCOPE = [
@@ -46,8 +46,7 @@ def get_sales_data():
         print("Data should be six numbers, seperated by commas")
         print("Example: 10,20,30,40,50,60\n")
 
-
-        data_str = input("Enter your data here: ")
+        data_str = input("Enter your data here: \n")
         
         # convert data string to list seperated by comma
         sales_data = data_str.split(",")
@@ -193,6 +192,7 @@ def main():
     sales_columns = get_last_5_entries_sales()
     # call the calcualte_stock_data fuction with sales_columns argument
     stock_data = calculate_stock_data(sales_columns)
+    # call update stock data function
     update_worksheet(stock_data, "stock")
 
 print('Welcome to LOVE Sandwiches Data Automation')
