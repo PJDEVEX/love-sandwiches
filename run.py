@@ -159,6 +159,21 @@ def get_last_5_entries_sales():
 
     return columns
 
+def calculate_stock_data(data):
+    """
+    Calculate the avarage stock for each items type, adding %
+    """
+    print("Calculating stock data...\n")
+    new_stock_data = []
+    
+    for column in data:
+        int_column = [int(num) for num in column]
+        avarage = sum(int_column) / len(int_column)
+        stock_num = avarage * 1.1
+        new_stock_data.append(round(stock_num))
+    
+    return new_stock_data
+
 
 def main():
     """
@@ -174,10 +189,13 @@ def main():
     new_surplus_data = calculate_surplus_data(sales_data)
     # call update suplus worksheet function
     update_worksheet(new_surplus_data, "surplus")
+    # create a sales_colunm variable for the fuction
+    sales_columns = get_last_5_entries_sales()
+    # call the calcualte_stock_data fuction with sales_columns argument
+    stock_data = calculate_stock_data(sales_columns)
+    update_worksheet(stock_data, "stock")
 
 print('Welcome to LOVE Sandwiches Data Automation')
-# main()
-
-get_last_5_entries_sales()
+main()
 
 # 1010000000111010101010000011111111110101010101101010101001
